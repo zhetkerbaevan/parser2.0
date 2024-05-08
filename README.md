@@ -1,7 +1,7 @@
 # Parser on Go
 The parser extracts data from the site https://kolesa.kz/cars/almaty / and saves it to the MySQL database.
   
-The data is saved according to the structure of ## Automobile, which has the fields:
+The data is saved according to the structure of Automobile, which has the fields:
 * id
 * model
 * price
