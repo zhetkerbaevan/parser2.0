@@ -1,4 +1,4 @@
-package entity
+package model
 
 type Automobile struct {
 	ID    int

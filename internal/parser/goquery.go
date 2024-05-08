@@ -1,4 +1,4 @@
-package act
+package parser
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"unicode"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/parser2.0/entity"
+	"github.com/parser2.0/internal/model"
 )
 
 func checkForError(err error) {
@@ -28,8 +28,8 @@ func getHtml(url string) *http.Response { // server response
 	return res
 }
 
-func GetData() []entity.Automobile {
-	var autos []entity.Automobile
+func GetData() []model.Automobile {
+	var autos []model.Automobile
 	url := "https://kolesa.kz/cars/almaty/"
 	res := getHtml(url)
 	defer res.Body.Close()
@@ -46,8 +46,8 @@ func GetData() []entity.Automobile {
 			checkForError(err)
 			//name of model - получено
 			h5 := item.Find("h5")
-			model := strings.TrimSpace(h5.Text())
-			splittedModel := strings.Split(model, "    ")[0]
+			entity := strings.TrimSpace(h5.Text())
+			splittedModel := strings.Split(entity, "    ")[0]
 
 			//price - получено
 			span := item.Find("span.a-card__price")
@@ -69,7 +69,7 @@ func GetData() []entity.Automobile {
 					checkForError(err)
 				}
 			}
-			var auto = entity.Automobile{ID: id, Model: splittedModel, Price: price, Year: year}
+			var auto = model.Automobile{ID: id, Model: splittedModel, Price: price, Year: year}
 			autos = append(autos, auto)
 		}
 	})
